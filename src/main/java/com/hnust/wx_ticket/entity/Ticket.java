@@ -40,6 +40,17 @@ public class Ticket implements Serializable {
     @TableField("seat_id")
     private Integer seatId;
 
+    /**
+     * 座位列号
+     */
+    @TableField("buy_time")
+    private String buyTime;
+
+    /**
+     * 座位列号
+     */
+    @TableField("buy_day")
+    private String buyDay;
 
 
 }

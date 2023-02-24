@@ -2,6 +2,7 @@ package com.hnust.wx_ticket.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hnust.wx_ticket.Utils.R;
+import com.hnust.wx_ticket.Vo.MovieVo;
 import com.hnust.wx_ticket.entity.Film;
 import com.hnust.wx_ticket.entity.Movie;
 import com.hnust.wx_ticket.service.MovieService;
@@ -63,9 +64,8 @@ public class MovieController {
 
     @GetMapping(value = "/filmid",produces = "application/json")
     public R getMovieByFilmId(@RequestParam Integer filmId) {
-        QueryWrapper<Movie> qw1 = new QueryWrapper<>();
-        qw1.eq("film_id", filmId);
-        List<Movie> movies = movieService.list(qw1);
-        return R.ok().data("movies", movies);
+
+        List<MovieVo>  list = movieService.getMovieAndFilm(filmId);
+        return R.ok().data("movieVos",list);
     }
 }

@@ -1,4 +1,5 @@
 package com.hnust.wx_ticket.controller;
+import cn.hutool.core.bean.BeanUtil;
 import com.hnust.wx_ticket.Utils.R;
 import com.hnust.wx_ticket.Vo.TicketVo;
 import com.hnust.wx_ticket.entity.Ticket;
@@ -34,6 +35,7 @@ public class TicketController {
         Ticket ticket = ticketService.getById(ticketId);
         int movieId = ticket.getMovieId();
         TicketVo ticketVo = ticketService.getTicket(ticketId,movieId,filmId);
+        BeanUtil.copyProperties(ticket,ticketVo);
         System.out.println(ticketVo.toString());
         return R.ok().data("ticketVo",ticketVo);
     }

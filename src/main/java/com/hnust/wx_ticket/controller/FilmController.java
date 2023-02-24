@@ -49,6 +49,13 @@ public class FilmController {
         return R.ok().data("total",total).data("rows",records);
     }
 
+    //获取电影总数
+    @GetMapping(value = "/total", produces = "application/json")
+    public R getFilmTatol() {
+        long res = filmService.count();
+        System.out.println("total:"+res );
+        return R.ok().data("total",res);
+    }
     //向电影库添加电影
     @PostMapping(produces = "application/json")
     public R addFilm(@RequestBody Film film){

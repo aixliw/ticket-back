@@ -38,7 +38,6 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, Ticket> impleme
     private SeatService seatService;
 
     public TicketVo getTicket(Integer ticketId,Integer movieId,Integer filmId) {
-
         TicketVo ticketVo = new TicketVo();
         Movie movie = movieService.getById(movieId);
         BeanUtil.copyProperties(movie,ticketVo);
@@ -48,6 +47,8 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, Ticket> impleme
         qw.eq("ticket_id",ticketId);
         Seat seat = seatService.getOne(qw);
         BeanUtil.copyProperties(seat,ticketVo);
+
+
         return ticketVo;
 
     }

@@ -1,16 +1,29 @@
 package com.hnust.wx_ticket.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hnust.wx_ticket.Vo.MovieVo;
+import com.hnust.wx_ticket.entity.Film;
 import com.hnust.wx_ticket.entity.Movie;
 import com.hnust.wx_ticket.mapper.MovieMapper;
+import com.hnust.wx_ticket.service.FilmService;
 import com.hnust.wx_ticket.service.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
 public class MovieServiceImpl extends ServiceImpl<MovieMapper, Movie> implements MovieService {
 
+    @Autowired
+    private MovieMapper movieMapper;
+
+    @Autowired
+    private FilmService filmService;
 
     public Integer addMovie(Movie movie) {
         //根据日期，播放厅，电影起始时间判断是否冲突
@@ -74,7 +87,6 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, Movie> implements
         if (mv1 != null || mv2 != null) {
             state = 1;
             System.out.println(mv2.toString());
-            System.out.println(mv2.toString());
         } else {
             boolean res = updateById(movie);
             if (res) {
@@ -84,5 +96,23 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, Movie> implements
             }
         }
         return state;
+    }
+
+    @Override
+    public List<MovieVo> getMovieAndFilm(Integer filmId) {
+        List<MovieVo>  movieVos = new ArrayList<>();
+        QueryWrapper<Movie> qw1 = new QueryWrapper<>();
+        qw1.eq("film_id", filmId);
+        List<Movie> movies = list(qw1);
+        QueryWrapper<Movie> qw2 = new QueryWrapper<>();
+        qw2.eq("film_id", filmId);
+        Film film  = filmService.getById(filmId);
+        for(Movie movie : movies){
+            MovieVo mv = new MovieVo();
+            BeanUtil.copyProperties(movie, mv);
+            BeanUtil.copyProperties(film, mv);
+            movieVos.add(mv);
+        }
+        return movieVos;
     }
 }

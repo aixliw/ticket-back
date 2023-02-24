@@ -27,4 +27,16 @@ public class TicketVo extends Movie {
      * 电影名
      */
     private String filmName;
+
+    /**
+     * 座位列号
+     */
+
+    private String buyTime;
+
+    /**
+     * 座位列号
+     */
+
+    private String buyDay;
 }
