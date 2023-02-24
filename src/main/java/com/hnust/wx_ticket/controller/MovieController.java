@@ -89,5 +89,18 @@ public class MovieController {
         return R.ok().data("totalMoney", totalMoney);
     }
 
+    //根据id删除场次
+    @DeleteMapping(produces = "application/json")
+    public R deleteMovie(@RequestParam Integer movieId){
+        QueryWrapper<Movie> qw = new QueryWrapper<>();
+        qw.eq("id", movieId);
+        boolean res = movieService.remove(qw);
+        if(res){
+            return R.ok().message("删除成功");
+        }else {
+            return R.ok().message("删除失败");
+        }
+    }
+
 
 }
