@@ -98,7 +98,7 @@ public class MovieController {
         if(res){
             return R.ok().message("删除成功");
         }else {
-            return R.ok().message("删除失败");
+            return R.error().message("删除失败");
         }
     }
 
