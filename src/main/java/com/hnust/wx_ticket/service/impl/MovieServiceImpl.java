@@ -147,17 +147,22 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, Movie> implements
         QueryWrapper<Movie> qw = new QueryWrapper<>();
         qw.eq("today", date);
         List<Movie> movies = list(qw);
-        Integer filmId = movies.get(0).getFilmId();
-        QueryWrapper<Movie> qw2 = new QueryWrapper<>();
-        qw2.eq("film_id", filmId);
-        Film film = filmService.getById(filmId);
-        for(Movie movie : movies){
-            MovieVo mv = new MovieVo();
-            BeanUtil.copyProperties(movie, mv);
-            BeanUtil.copyProperties(film, mv);
-            movieVos.add(mv);
+        if(movies != null && movies.size() != 0){
+            Integer filmId = movies.get(0).getFilmId();
+            QueryWrapper<Movie> qw2 = new QueryWrapper<>();
+            qw2.eq("film_id", filmId);
+            Film film = filmService.getById(filmId);
+            for(Movie movie : movies){
+                MovieVo mv = new MovieVo();
+                BeanUtil.copyProperties(movie, mv);
+                BeanUtil.copyProperties(film, mv);
+                movieVos.add(mv);
+            }
+            return movieVos;
+        }else {
+            return null;
         }
-        return movieVos;
+
     }
 
 
