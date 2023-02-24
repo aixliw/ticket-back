@@ -5,6 +5,7 @@ import com.hnust.wx_ticket.Vo.MovieVo;
 import com.hnust.wx_ticket.entity.Movie;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MovieService extends IService<Movie> {
 
@@ -12,6 +13,8 @@ public interface MovieService extends IService<Movie> {
 
     Integer editMovie(Movie movie);
 
-    List<MovieVo> getMovieAndFilm(Integer filmId);
+    Map<String, Object> getMovieAndFilm(Integer filmId);
+
+    List<MovieVo> getMovies(Integer filmId);
 }
 

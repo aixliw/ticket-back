@@ -9,7 +9,9 @@ import com.hnust.wx_ticket.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/movie")
@@ -65,7 +67,13 @@ public class MovieController {
     @GetMapping(value = "/filmid",produces = "application/json")
     public R getMovieByFilmId(@RequestParam Integer filmId) {
 
-        List<MovieVo>  list = movieService.getMovieAndFilm(filmId);
-        return R.ok().data("movieVos",list);
+        Map<String, Object> mp = movieService.getMovieAndFilm(filmId);
+        return R.ok().data(mp);
+    }
+
+    @GetMapping(value="/get",produces = "application/json")
+    public R getMovies(@RequestBody Integer filmId){
+        List<MovieVo> list = movieService.getMovies(filmId);
+        return R.ok().data("moviesVos",list);
     }
 }

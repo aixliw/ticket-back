@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -99,14 +101,28 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, Movie> implements
     }
 
     @Override
-    public List<MovieVo> getMovieAndFilm(Integer filmId) {
-        List<MovieVo>  movieVos = new ArrayList<>();
+    public Map<String, Object> getMovieAndFilm(Integer filmId) {
         QueryWrapper<Movie> qw1 = new QueryWrapper<>();
         qw1.eq("film_id", filmId);
         List<Movie> movies = list(qw1);
         QueryWrapper<Movie> qw2 = new QueryWrapper<>();
         qw2.eq("film_id", filmId);
-        Film film  = filmService.getById(filmId);
+        Film film = filmService.getById(filmId);
+        Map<String, Object> mp = new HashMap<>();
+        mp.put("film", film);
+        mp.put("movies", movies);
+        return mp;
+    }
+
+    @Override
+    public List<MovieVo> getMovies(Integer filmId) {
+        List<MovieVo> movieVos = new ArrayList<>();
+        QueryWrapper<Movie> qw = new QueryWrapper<>();
+        qw.eq("film_id", filmId);
+        List<Movie> movies = list(qw);
+        QueryWrapper<Movie> qw2 = new QueryWrapper<>();
+        qw2.eq("film_id", filmId);
+        Film film = filmService.getById(filmId);
         for(Movie movie : movies){
             MovieVo mv = new MovieVo();
             BeanUtil.copyProperties(movie, mv);
