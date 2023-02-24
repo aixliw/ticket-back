@@ -12,5 +12,7 @@ import java.util.List;
 public interface MovieMapper extends BaseMapper<Movie> {
 
    // List<MovieVo> getMovieAndFilm(Integer filmId);
+   Double getTotalMoney(String date);
+
 
 }

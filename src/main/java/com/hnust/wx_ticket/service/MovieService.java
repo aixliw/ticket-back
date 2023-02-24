@@ -16,5 +16,9 @@ public interface MovieService extends IService<Movie> {
     Map<String, Object> getMovieAndFilm(Integer filmId);
 
     List<MovieVo> getMovies(Integer filmId);
+
+    Double getTotalMoney(String date);
+
+    List<MovieVo> getMovieVo(String date);
 }
 

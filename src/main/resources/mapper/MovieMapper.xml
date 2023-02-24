@@ -6,9 +6,9 @@ select movie.id,film_id,room,room_profile,play_type,site,site,place,price,begin,
 FROM movie, film
 WHERE movie.film_id = #{filmId} AND film.id = #{filmId} AND movie.film_id = film.id
 </select>-->
- <!--   <select id="getMovieAndFilm" resultType="com.hnust.wx_ticket.Vo.MovieVo">
-        select *
+    <select id="getTotalMoney" resultType="Double">
+        select sum(price)  as totalmoney
         FROM movie
-        WHERE movie.film_id = #{filmId}
-    </select>-->
+        WHERE movie.today like #{date}
+    </select>
 </mapper>

@@ -29,15 +29,15 @@ public class MovieController {
     }
 
     //根据日期查询当天的电影日程
-    @GetMapping(value = "/day",produces = "application/json")
+    @GetMapping(value = "/day", produces = "application/json")
     public R getMovieByDay(@RequestParam String date) {
 
-        QueryWrapper<Movie> qw = new QueryWrapper<>();
-        qw.eq("today", date);
-        List<Movie> movies = movieService.list(qw);
-        return R.ok().data("movie", movies);
+        List<MovieVo> movieVos = movieService.getMovieVo(date);
+        return R.ok().data("movieVos", movieVos);
     }
 
+
+    //添加电影场次
     @PostMapping(produces = "application/json")
     public R addMovie(@RequestBody Movie movie) {
         //根据日期，播放厅，电影起始时间判断是否冲突
@@ -51,7 +51,8 @@ public class MovieController {
         }
     }
 
-    @PostMapping(value = "/edit",produces = "application/json")
+    //修改电影场次
+    @PostMapping(value = "/edit", produces = "application/json")
     public R editMovie(@RequestBody Movie movie) {
         //根据日期，播放厅，电影起始时间判断是否冲突
         Integer state = movieService.editMovie(movie);
@@ -64,16 +65,29 @@ public class MovieController {
         }
     }
 
-    @GetMapping(value = "/filmid",produces = "application/json")
+    //根据filmId查询场次信息
+    @GetMapping(value = "/filmid", produces = "application/json")
     public R getMovieByFilmId(@RequestParam Integer filmId) {
 
         Map<String, Object> mp = movieService.getMovieAndFilm(filmId);
         return R.ok().data(mp);
     }
 
-    @GetMapping(value="/get",produces = "application/json")
-    public R getMovies(@RequestBody Integer filmId){
+    //根据filmId查询moveVo
+    @GetMapping(value = "/get", produces = "application/json")
+    public R getMovies(@RequestBody Integer filmId) {
         List<MovieVo> list = movieService.getMovies(filmId);
-        return R.ok().data("moviesVos",list);
+        return R.ok().data("moviesVos", list);
     }
+
+    //查询总金额
+    @GetMapping(value = "/money", produces = "application/json")
+    public R getTotalMoney(String date) {
+        String[] strings = date.split("-");
+        System.out.println(strings[0] + "-" + strings[1] + '%');
+        Double totalMoney = movieService.getTotalMoney(strings[0] + "-" + strings[1] + '%');
+        return R.ok().data("totalMoney", totalMoney);
+    }
+
+
 }
