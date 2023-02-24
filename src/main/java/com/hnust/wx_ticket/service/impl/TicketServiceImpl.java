@@ -48,7 +48,6 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, Ticket> impleme
         Seat seat = seatService.getOne(qw);
         BeanUtil.copyProperties(seat,ticketVo);
 
-
         return ticketVo;
 
     }

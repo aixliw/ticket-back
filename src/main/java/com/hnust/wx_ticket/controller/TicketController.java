@@ -1,6 +1,7 @@
 package com.hnust.wx_ticket.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hnust.wx_ticket.Utils.R;
 import com.hnust.wx_ticket.Vo.TicketDay;
 import com.hnust.wx_ticket.Vo.TicketVo;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.xml.namespace.QName;
 
 
 /**
@@ -50,6 +53,15 @@ public class TicketController {
         BeanUtil.copyProperties(ticket, ticketDay);
         return R.ok().data("ticketDay", ticketDay);
 
+    }
+
+    //根据日期获取订单数量
+    @GetMapping("/count")
+    public R getCount(@RequestParam String date){
+        QueryWrapper<Ticket>  qw = new QueryWrapper<>();
+        qw.eq("buy_day",date);
+        long count = ticketService.count(qw);
+        return R.ok().data("count",count);
     }
 
 }

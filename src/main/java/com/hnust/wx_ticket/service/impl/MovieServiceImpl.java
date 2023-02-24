@@ -148,9 +148,6 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, Movie> implements
         qw.eq("today", date);
         List<Movie> movies = list(qw);
         if(movies != null && movies.size() != 0){
-
-
-
             for(Movie movie : movies){
                 Integer filmId = movie.getFilmId();
                 System.out.println(filmId);
@@ -166,6 +163,7 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, Movie> implements
         }
 
     }
+
 
 
 
