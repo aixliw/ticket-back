@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hnust.wx_ticket.Utils.R;
+import com.hnust.wx_ticket.Vo.FilmVo;
 import com.hnust.wx_ticket.Vo.MovieVo;
 import com.hnust.wx_ticket.entity.Film;
 import com.hnust.wx_ticket.entity.Movie;
@@ -152,9 +153,11 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, Movie> implements
                 Integer filmId = movie.getFilmId();
                 System.out.println(filmId);
                 Film film = filmService.getById(filmId);
+                FilmVo filmVo = new FilmVo();
+                BeanUtil.copyProperties(film,filmVo);
                 MovieVo mv = new MovieVo();
                 BeanUtil.copyProperties(movie, mv);
-                BeanUtil.copyProperties(film, mv);
+                BeanUtil.copyProperties(filmVo, mv);
                 movieVos.add(mv);
             }
             return movieVos;
