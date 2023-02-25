@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/upload")
 public class UploadController {
 
-    @Autowired
+   @Autowired
     private  UploadService uploadService;
 
     @PostMapping
