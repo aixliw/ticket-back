@@ -6,6 +6,9 @@ import com.hnust.wx_ticket.Vo.MovieVo;
 import com.hnust.wx_ticket.entity.Film;
 import com.hnust.wx_ticket.entity.Movie;
 import com.hnust.wx_ticket.service.MovieService;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +16,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
 
     @Autowired
     private MovieService movieService;
+    private final Marker marker = MarkerFactory.getMarker("操作日志");
 
 
     //根据id查询本场电影的信息
@@ -43,10 +48,13 @@ public class MovieController {
         //根据日期，播放厅，电影起始时间判断是否冲突
         Integer state = movieService.addMovie(movie);
         if (state == 1) {
+            log.info(marker,String.format("添加电影日程失败`#`%s,失败原因：此时间此播放厅已被其它电影占用",movie.toString()));
             return R.error().message("此时间此播放厅已被其它电影占用");
         } else if (state == 2) {
+            log.info(marker,String.format("添加电影日程成功`#`%s",movie.toString()));
             return R.ok().message("电影日程添加成功");
         } else {
+            log.info(marker,String.format("添加电影日程失败`#`%s,失败原因：电影日程添加出错",movie.toString()));
             return R.error().message("电影日程添加出错");
         }
     }
@@ -57,10 +65,13 @@ public class MovieController {
         //根据日期，播放厅，电影起始时间判断是否冲突
         Integer state = movieService.editMovie(movie);
         if (state == 1) {
+            log.info(marker,String.format("修改电影日程失败`#`%s,失败原因：此时间此播放厅已被其它电影占用",movie.toString()));
             return R.error().message("此时间此播放厅已被其它电影占用");
         } else if (state == 2) {
+            log.info(marker,String.format("修改电影日程成功`#`%s",movie.toString()));
             return R.ok().message("电影日程修改成功");
         } else {
+            log.info(marker,String.format("添加电影日程失败`#`%s,失败原因：电影日程修改出错",movie.toString()));
             return R.error().message("电影日程修改出错");
         }
     }
@@ -96,8 +107,10 @@ public class MovieController {
         qw.eq("id", movieId);
         boolean res = movieService.remove(qw);
         if(res){
+            log.info(marker,String.format("删除电影日程成功`#`场次ID：%s",movieId));
             return R.ok().message("删除成功");
         }else {
+            log.info(marker,String.format("删除电影日程失败`#`场次ID：%s",movieId));
             return R.error().message("删除失败");
         }
     }
