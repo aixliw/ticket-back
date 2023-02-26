@@ -11,7 +11,7 @@ import java.util.*;
 
 @Service
 public class LoggerServiceImpl implements LoggerService {
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public List<Map<String, String>> getLoggerByDay(String date, int index) throws Exception {
@@ -26,7 +26,7 @@ public class LoggerServiceImpl implements LoggerService {
         }
         BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
         byte[] buffer = new byte[1024];
-        int flag = 0;
+        int flag;
         while ((flag = bufferedInputStream.read(buffer)) != -1) {
             content = new String(buffer, 0, flag);
         }
