@@ -10,7 +10,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hnust.wx_ticket.Utils.R;
 import com.hnust.wx_ticket.Utils.StpUserUtil;
 import com.hnust.wx_ticket.entity.Film;
+import com.hnust.wx_ticket.entity.Movie;
 import com.hnust.wx_ticket.service.FilmService;
+import com.hnust.wx_ticket.service.MovieService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
@@ -36,6 +38,10 @@ public class FilmController {
 
     @Autowired
     private FilmService filmService;
+
+    @Autowired
+    private MovieService movieService;
+
     private final Marker marker = MarkerFactory.getMarker("操作日志");
 
     //分页查询
@@ -82,14 +88,22 @@ public class FilmController {
     //根据id删除电影
     @DeleteMapping(value = "{id}", produces = "application/json")
     public R deleteFilm(@PathVariable Integer id) {
-        boolean res = filmService.removeById(id);
-        if (res) {
-            log.info(marker,String.format("删除电影成功`#`电影ID：%s",id));
-            return R.ok().message("删除成功");
-        } else {
-            log.info(marker,String.format("删除电影失败`#`电影ID：%s",id));
-            return R.error().message("删除失败");
+        QueryWrapper<Movie> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("film_id",id);
+        List<Movie> movies = movieService.list(queryWrapper);
+        if(movies != null){
+            return  R.error().message("有movie正在热映，无法删除电影相关信息");
+        }else {
+            boolean res = filmService.removeById(id);
+            if (res) {
+                log.info(marker,String.format("删除电影成功`#`电影ID：%s",id));
+                return R.ok().message("删除成功");
+            } else {
+                log.info(marker,String.format("删除电影失败`#`电影ID：%s",id));
+                return R.error().message("删除失败");
+            }
         }
+
     }
 
     //修改电影
