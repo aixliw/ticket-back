@@ -1,7 +1,9 @@
 package com.hnust.wx_ticket.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hnust.wx_ticket.Utils.R;
+import com.hnust.wx_ticket.Utils.StpUserUtil;
 import com.hnust.wx_ticket.Vo.MovieVo;
 import com.hnust.wx_ticket.entity.Film;
 import com.hnust.wx_ticket.entity.Movie;
@@ -16,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SaCheckLogin
 @Slf4j
 @RestController
 @RequestMapping("/movie")

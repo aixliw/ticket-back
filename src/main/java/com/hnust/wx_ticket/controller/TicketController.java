@@ -1,8 +1,10 @@
 package com.hnust.wx_ticket.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hnust.wx_ticket.Utils.R;
+import com.hnust.wx_ticket.Utils.StpUserUtil;
 import com.hnust.wx_ticket.Vo.TicketDay;
 import com.hnust.wx_ticket.Vo.TicketVo;
 import com.hnust.wx_ticket.entity.Ticket;
@@ -24,6 +26,7 @@ import javax.xml.namespace.QName;
  * @author perfect imitator
  * @since 2023-02-22
  */
+@SaCheckLogin
 @RestController
 @RequestMapping("/ticket")
 public class TicketController {

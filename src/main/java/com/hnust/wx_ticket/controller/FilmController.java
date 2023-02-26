@@ -1,11 +1,14 @@
 package com.hnust.wx_ticket.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hnust.wx_ticket.Utils.R;
+import com.hnust.wx_ticket.Utils.StpUserUtil;
 import com.hnust.wx_ticket.entity.Film;
 import com.hnust.wx_ticket.service.FilmService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +28,7 @@ import java.util.List;
  * @author aixiong
  * @since 2023-02-22
  */
+@SaCheckLogin
 @Slf4j
 @RestController
 @RequestMapping("/film")

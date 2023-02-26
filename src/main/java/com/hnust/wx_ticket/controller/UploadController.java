@@ -1,6 +1,8 @@
 package com.hnust.wx_ticket.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.hnust.wx_ticket.Utils.R;
+import com.hnust.wx_ticket.Utils.StpUserUtil;
 import com.hnust.wx_ticket.service.UploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Marker;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+@SaCheckLogin
 @Slf4j
 @RestController
 @RequestMapping("/upload")

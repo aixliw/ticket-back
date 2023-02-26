@@ -1,11 +1,13 @@
 package com.hnust.wx_ticket.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.hnust.wx_ticket.Utils.R;
+import com.hnust.wx_ticket.Utils.StpUserUtil;
 import com.hnust.wx_ticket.Vo.SeatVo;
 import com.hnust.wx_ticket.entity.Seat;
 import com.hnust.wx_ticket.service.FilmService;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
  * @author perfect imitator
  * @since 2023-02-22
  */
+@SaCheckLogin
 @RestController
 @RequestMapping("/seat")
 public class SeatController {

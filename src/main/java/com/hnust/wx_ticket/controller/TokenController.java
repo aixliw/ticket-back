@@ -1,7 +1,9 @@
 package com.hnust.wx_ticket.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.hnust.wx_ticket.Utils.GetAccessToken;
 import com.hnust.wx_ticket.Utils.R;
+import com.hnust.wx_ticket.Utils.StpUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,8 @@ import java.util.concurrent.TimeUnit;
  * @description
  * @date 2022/1/28
  */
+
+@SaCheckLogin(type = StpUserUtil.TYPE)
 @RestController
 @RequestMapping("/token")
 public class TokenController {

@@ -1,9 +1,11 @@
 package com.hnust.wx_ticket.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.hnust.wx_ticket.Utils.BuildMessage;
 import com.hnust.wx_ticket.Utils.GetAccessToken;
 import com.hnust.wx_ticket.Utils.R;
+import com.hnust.wx_ticket.Utils.StpUserUtil;
 import com.hnust.wx_ticket.entity.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
@@ -19,6 +21,7 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 
+@SaCheckLogin(type = StpUserUtil.TYPE)
 @RestController
 @RequestMapping("/access")
 public class AccessController {
