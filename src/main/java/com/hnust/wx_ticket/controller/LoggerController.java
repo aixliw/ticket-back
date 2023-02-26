@@ -19,11 +19,11 @@ public class LoggerController {
     private LoggerService loggerService;
 
     @GetMapping(produces = "application/json")
-    public R getLogger(@RequestParam String date){
-        try{
-            List<Map<String,String>> list = loggerService.getLoggerByDay(date);
-            return R.ok().data("logs",list);
-        }catch (Exception e){
+    public R getLogger(@RequestParam String date, @RequestParam(required = false, defaultValue = "0") int index) {
+        try {
+            List<Map<String, String>> list = loggerService.getLoggerByDay(date, index);
+            return R.ok().data("logs", list);
+        } catch (Exception e) {
             e.printStackTrace();
             return R.error().message(e.toString());
         }

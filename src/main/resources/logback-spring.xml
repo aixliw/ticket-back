@@ -33,7 +33,7 @@
     <!-- 日志文件输出 -->
     <appender name="infoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 设置日志不超过${log.max.size}时的保存路径，注意如果 是web项目会保存到Tomcat的bin目录 下 -->
-        <file>${log.base}/filmLog/${datetime}.log</file>
+        <file>${log.base}/filmLog/today.log</file>
         <!--过滤器，只记录INFO级别的日志-->
         <filter class="com.hnust.wx_ticket.Utils.LogFilter"/>
         <!-- 日志输出的文件的格式  -->
@@ -44,11 +44,11 @@
         <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件。-->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--按天回滚-->
-            <fileNamePattern>${log.base}/info/archive/${log.moduleName}_info_%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <fileNamePattern>${log.base}/filmLog/%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!--日志最大存储天数-->
-            <maxHistory>60</maxHistory>
+            <maxHistory>30</maxHistory>
             <!-- 当天的日志大小 超过${log.max.size}时,压缩日志并保存 -->
-            <maxFileSize>${log.max.size}</maxFileSize>
+            <maxFileSize>50MB</maxFileSize>
         </rollingPolicy>
     </appender>
 
